@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <h3>Kontrol Paneli</h3>
+    <hr>
+
+
+    <form>
+      {% csrf_token %}
+      <input type="text" name="keyword" class="input-sm" maxlength="64" placeholder="Hayvan Adı">
+      <button type="submit" class="btn btn-primary">Ara</button>
+    </form>
+
+    <hr>
+
+    <a class = "btn btn-danger" href="{% url 'animal:addanimal' %}">Hayvan Ekle</a>
+    <hr>
+    
+    {% if animals %}
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">Sahibi</th>
+            <th scope="col">Tür</th>
+            <th scope="col">Cins</th>
+            <th scope="col">Ad</th>
+            <th scope="col">Yaş</th>
+            <th scope="col">Açıklama</th>
+            <th scope="col">Tarih</th>
+            <th scope="col">Güncelle</th>
+            <th scope="col">Sil</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for animal in animals %}
+            <tr>
+                <th scope="row">{{ animal.id }}</th>
+                <td>{{animal.owner}}</td>
+                <td>{{animal.type_of_animal}}</td>
+                <td>{{animal.genus}}</td>
+                <td>{{animal.name_of_animal}}</td>
+                <td>{{animal.age_of_animal}}</td>
+                <td>{{animal.explanation}}</td>
+                <td>{{animal.created_date}}</td>
+                <td><a href="/animals/update/{{animal.id}}" class="btn btn-danger">Güncelle</a></td>
+                <td><a href="/animals/delete/{{animal.id}}" class="btn btn-danger">Sil</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <div class="alert alert-danger">
+          Hayvan Bulunamadı.
+      </div>
+    {% endif %}
+
+{% endblock body %}

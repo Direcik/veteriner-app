@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div class="jumbotron text-center">
+        <p>        
+            {% if request.user.is_authenticated %}
+                <h3>Hoşgeldin, {{request.user.username}}</h3>
+                Kontrol Paneline giderek işlemlerinizi gerçekleştirebilirsiniz.
+            {% else %}
+                Giriş Yapılmamış
+            {% endif %}
+        </p>
+    </div>
+    <p>
+
+    </p>
+{% endblock body %}
